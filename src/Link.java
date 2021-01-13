@@ -33,7 +33,7 @@ public class Link<E> {
 
     public String toString()
     {
-        return next == null ? data.toString() : data.toString() + "- next " + next.toString();
+        return next == null ? data.toString() : data.toString() + /*"- next " +*/ next.toString();
     }
 
 }
