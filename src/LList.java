@@ -27,7 +27,6 @@ public class LList<E>
         // otherwise connect current tail to newLink then set the new tail to newLink
         tail.setNext(newLink);
         tail = newLink;
-
     }
 
     // add a new Link that contains newData to the beginning of this list
@@ -48,6 +47,7 @@ public class LList<E>
     // Add value to list at position 'index'; do nothing if index is out of bounds
     public void insert(int index, E value) {
         if (index < size) {
+            size++;
             Link<E> newLink = new Link<E>(value);
             if (index == 0) { // starting from head doesn't work if we want to insert something before head
                 newLink.setNext(head);
@@ -55,7 +55,7 @@ public class LList<E>
                 return;
             }
             Link<E> ptr = head; // point to the link which newLink will be inserted after
-            for (int i = 0; i < index - 1; i ++){
+            for (int i = 0; i < index - 1; i++) {
                 ptr = ptr.getNext();
             }
             newLink.setNext(ptr.getNext());
@@ -68,6 +68,7 @@ public class LList<E>
         if (index == 0){ // head should be updated if removing first element
             E ret = head.getData();
             head = head.getNext();
+            size --;
             return ret;
         }
         else if (index > 0 && index < size - 1){
@@ -76,16 +77,17 @@ public class LList<E>
                 ptr = ptr.getNext();
             }
             ptr.setNext(ptr.getNext().getNext());
+            size --;
             return ptr.getData();
         }
         else if (index == size - 1){ // tail should be updated if removing last element
             Link<E> ptr = head; // point to the link before tail
-            for (int i = 0; i < size - 4; i ++){
-                System.out.println("\t" + ptr.getData() + " " + ptr.getNext().getData());
+            for (int i = 0; i < size - 2; i ++){
                 ptr = ptr.getNext();
             }
             ptr.setNext(null);
             tail = ptr;
+            size --;
             return ptr.getData();
         }
         return null;
@@ -93,22 +95,43 @@ public class LList<E>
 
     // Return the value at position 'index'; return null if 'index' is out of bounds
     public E get(int index){
-        if (index >= size) {
+        if (index < 0 || index >= size) {
             return null;
         }
-        else {
-            Link<E> ret = head;
-            for (int i = 0; i < index; i ++){
-                ret = ret.getNext();
-            }
-            return ret.getData();
+        Link<E> ptr = head; // point to link which will be returned
+        for (int i = 0; i < index; i ++){
+            ptr = ptr.getNext();
         }
+        return ptr.getData();
     }
 
     // Modify the data at 'index' to replace it with 'value', return old value; return null if 'index' is out of bounds
     public E set(int index, E value){
-        return null;
+        if (index < 0 || index >= size){
+            return null;
+        }
+        Link<E> ptr = head; // point to the link which will be replaced
+        for (int i = 0; i < index; i++){
+            ptr = ptr.getNext();
+        }
+        E ret = ptr.getData();
+        ptr.setData(value);
+        return ret;
     }
+
+    /*
+    // Helper function to iterate to a link in the list
+    private Link<E> iterateTo(int index){
+        if (index < 0 || index >= size){
+            return null;
+        }
+        Link<E> ptr = head;
+        for (int i = 0; i < index; i ++){
+            ptr = ptr.getNext();
+        }
+        return ptr;
+    }
+    */
 
     // Return number of items in the list
     public int size(){

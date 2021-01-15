@@ -1,19 +1,14 @@
 public class Tester {
     public static void main(String[] args){
-        /*
+
         LList<String> test = new LList<String>();
-        for (char c = 'a'; c <= 'z'; c++){
-            test.append(String.valueOf(c));
+        for (int i = 0; i < 30; i ++){
+            test.append(String.valueOf(i));
         }
-
-        System.out.println(test.toString());
-        test.remove(0);
+        System.out.println(test + " size " + String.valueOf(test.size()));
+        test.prepend(String.valueOf(1));
+        System.out.println(test + " size " + String.valueOf(test.size()));
+        System.out.println(test.set(3, String.valueOf(69)));
         System.out.println(test);
-        test.remove(1);
-        System.out.println(test);
-        test.remove(test.size() - 1);
-        System.out.println(test);
-        */
-
     }
 }
