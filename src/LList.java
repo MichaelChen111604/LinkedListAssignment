@@ -76,19 +76,21 @@ public class LList<E>
             for (int i = 0; i < index - 1; i ++){
                 ptr = ptr.getNext();
             }
+            E ret = ptr.getNext().getData();
             ptr.setNext(ptr.getNext().getNext());
             size --;
-            return ptr.getData();
+            return ret;
         }
         else if (index == size - 1){ // tail should be updated if removing last element
             Link<E> ptr = head; // point to the link before tail
             for (int i = 0; i < size - 2; i ++){
                 ptr = ptr.getNext();
             }
+            E ret = tail.getData();
             ptr.setNext(null);
             tail = ptr;
             size --;
-            return ptr.getData();
+            return ret;
         }
         return null;
     }
@@ -119,33 +121,9 @@ public class LList<E>
         return ret;
     }
 
-    /*
-    // Helper function to iterate to a link in the list
-    private Link<E> iterateTo(int index){
-        if (index < 0 || index >= size){
-            return null;
-        }
-        Link<E> ptr = head;
-        for (int i = 0; i < index; i ++){
-            ptr = ptr.getNext();
-        }
-        return ptr;
-    }
-    */
-
     // Return number of items in the list
     public int size(){
         return size;
-    }
-
-    public String toString()
-    {
-        if (head == null){
-            return "Empty";
-        }
-        else{
-            return head.toString();
-        }
     }
 
 }
